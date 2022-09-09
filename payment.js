@@ -6,10 +6,7 @@
  * @returns {boolean}
  */
 function checkPersonObject(person) {
-  if (
-    (person && person.firstName && person.middleName && person.lastName) ||
-    (person && person.firstName && person.lastName)
-  ) {
+  if (person && person.firstName && person.lastName) {
     return true;
   }
   return false;
@@ -26,6 +23,7 @@ function checkCreditCardObject(creditCard) {
   if (
     creditCard &&
     creditCard.number &&
+    creditCard.cvc &&
     creditCard.cvc.length === 3 &&
     creditCard.number.length === 16
   ) {
@@ -59,21 +57,22 @@ async function checkCreditCardValidity(creditCardData) {
   if (!validArgs) {
     return false;
   }
-
-  const result = await fetch(
-    "https://api.pihi-group.com/cc/check-credit-card",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(creditCardData),
+  try {
+    const result = await fetch(
+      "https://api.pihi-group.com/cc/check-credit-card",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(creditCardData),
+      }
+    );
+    const json = await result.json();
+    if (json.validCard) {
+      return true;
     }
-  );
-  const json = await result.json();
-  if (json.validCard) {
-    return true;
-  } else {
+  } catch (error) {
     return false;
   }
 }
