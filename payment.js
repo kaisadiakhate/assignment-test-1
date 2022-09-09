@@ -26,7 +26,7 @@ function checkCreditCardObject(creditCard) {
   if (
     creditCard &&
     creditCard.number &&
-    creditCard.cvc &&
+    creditCard.cvc.length === 3 &&
     creditCard.number.length === 16
   ) {
     return true;
