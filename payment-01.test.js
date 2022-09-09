@@ -58,14 +58,14 @@ describe("objects", () => {
     expect(checkCreditCardObject(cc2)).toBe(false);
   });
 
-  it.skip("American Express cards should not be accepted", () => {
+  it("American Express cards should not be accepted", () => {
     const cc1 = {
       number: "37234567012345",
-      cvc: "123",
+      cvc: "1234",
     };
     const cc2 = {
       number: "3434567890123456",
-      cvc: "123",
+      cvc: "1235",
     };
 
     expect(checkCreditCardObject(cc1)).toBe(false);
@@ -80,7 +80,7 @@ describe("objects", () => {
     expect(checkPaymentObject(payment)).toBe(true);
   });
 
-  it.skip("check invalid payment object", () => {
+  it("check invalid payment object", () => {
     const payment = {
       sum: -1, // Negative sums are invalid in our api.
     };
