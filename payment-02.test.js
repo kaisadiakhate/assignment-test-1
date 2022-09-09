@@ -32,7 +32,7 @@ describe("creditcard", () => {
     expect(isValidCard).toBe(false);
   });
 
-  it.skip("test checkCreditCardValidity when faulty endpoint", async () => {
+  it("test checkCreditCardValidity when faulty endpoint", async () => {
     fetch.mockReject(() => Promise.reject("API error"));
 
     const cc = {
